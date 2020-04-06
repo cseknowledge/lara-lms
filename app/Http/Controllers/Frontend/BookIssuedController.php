@@ -27,12 +27,15 @@ class BookIssuedController extends Controller
     
     public function create()
     {
-        return view('frontend.book_issue.create');
+        $books = $this->bookIssuedRepository->getBooks();
+        $users = $this->bookIssuedRepository->getUsers();
+        return view('frontend.book_issue.create', compact('books', 'users'));
     }
     
     public function store(BookIssuedPostRequest $request)
-    {        
-        $this->bookIssuedRepository->create($request->only($this->bookIssuedRepository->getModel()->fillable));        
+    {   
+        $this->bookIssuedRepository->create($request->only($this->bookIssuedRepository->getModel()->fillable));       
+        $this->bookIssuedRepository->updateBookAvailability($request->input('book_id'), '0');
         return redirect('/bookIssued/')->with('flash_message', 'New bookIssued created successfully');
     }
     
@@ -49,12 +52,19 @@ class BookIssuedController extends Controller
         $bookIssued = $this->bookIssuedRepository->show($id);
         $previousBookIssuedId = $this->bookIssuedRepository->getPreviousBookIssuedId($id);
         $nextBookIssuedId = $this->bookIssuedRepository->getNextBookIssuedId($id);
-        return view('frontend.book_issue.edit', compact('bookIssued', 'previousBookIssuedId', 'nextBookIssuedId'));
+        $books = $this->bookIssuedRepository->getBooks();
+        $users = $this->bookIssuedRepository->getUsers();
+        return view('frontend.book_issue.edit', compact('bookIssued', 'previousBookIssuedId', 'nextBookIssuedId', 'books', 'users'));
     }
     
     public function update(BookIssuedPostRequest $request, $id)
-    {
+    {   
+        $bookIssued = $this->bookIssuedRepository->show($id);
         $this->bookIssuedRepository->update($request->only($this->bookIssuedRepository->getModel()->fillable), $id);
+        if($bookIssued->book_id != $request->input('book_id')) {
+            $this->bookIssuedRepository->updateBookAvailability($bookIssued->book_id, '1');
+            $this->bookIssuedRepository->updateBookAvailability($request->input('book_id'), '0');
+        }
         return redirect('/bookIssued/')->with('flash_message', 'BookIssued updated successfully');
     }
     

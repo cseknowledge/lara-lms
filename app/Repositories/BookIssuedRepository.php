@@ -4,6 +4,9 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Book;
+use App\User;
+
 class BookIssuedRepository implements RepositoryInterface
 {
     // model property on class instances
@@ -73,5 +76,22 @@ class BookIssuedRepository implements RepositoryInterface
     public function getNextBookIssuedId($id)
     {
         return $this->model->where('id', '>', $id)->min('id');
+    }
+
+    public function getBooks()
+    {
+        return Book::where('is_available', '=', 1)->latest()->get();
+    }
+
+    public function getUsers()
+    {
+        return User::all();
+    }
+
+    public function updateBookAvailability($id, $status)
+    {
+        $book = Book::findOrFail($id);
+        $book->is_available = $status;
+        $book->save();
     }
 }

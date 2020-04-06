@@ -9,12 +9,25 @@
 <script src="{{ asset('assets/frontend/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
 <!-- Page level custom scripts -->
+<script src="{{ asset('assets/frontend/js/bootstrap-datetimepicker.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/datatables-demo.js') }}"></script>
+{{-- <script src="{{ asset('assets/frontend/js/datatables-demo.js') }}"></script> --}}
 
 <script type="text/javascript">
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
         });
+    });
+    $('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+        forceParse: 0,
+        format: 'dd-mm-yyyy'
     });
 </script>

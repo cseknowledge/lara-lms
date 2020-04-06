@@ -4,92 +4,67 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\BookRepository;
+use App\Http\Requests\BookPostRequest;
+
+use App\Book;
 
 class BookController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $bookRepository;
+   
+    public function __construct(Book $book)
     {
         $this->middleware('auth');
+        $this->bookRepository = new BookRepository($book);
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $books = $this->bookRepository->all();
+        return view('frontend.book.index', compact('books'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        $authors = $this->bookRepository->getAuthors();
+        $publishers = $this->bookRepository->getPublishers();
+        return view('frontend.book.create', compact('authors', 'publishers'));
+    }
+    
+    public function store(BookPostRequest $request)
+    {      
+        $this->bookRepository->create($request->only($this->bookRepository->getModel()->fillable));        
+        return redirect('/book/')->with('flash_message', 'New book created successfully');
+    }
+    
+    public function show($id)
+    {
+        $book = $this->bookRepository->show($id);
+        $previousBookId = $this->bookRepository->getPreviousBookId($id);
+        $nextBookId = $this->bookRepository->getNextBookId($id);
+        return view('frontend.book.show', compact('book', 'previousBookId', 'nextBookId'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function edit($id)
     {
-        //
+        $book = $this->bookRepository->show($id);
+        $previousBookId = $this->bookRepository->getPreviousBookId($id);
+        $nextBookId = $this->bookRepository->getNextBookId($id);
+        $authors = $this->bookRepository->getAuthors();
+        $publishers = $this->bookRepository->getPublishers();
+        return view('frontend.book.edit', compact('book', 'previousBookId', 'nextBookId', 'authors', 'publishers'));
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Book $book)
+    
+    public function update(BookPostRequest $request, $id)
     {
-        //
+        $this->bookRepository->update($request->only($this->bookRepository->getModel()->fillable), $id);
+        return redirect('/book/')->with('flash_message', 'Book updated successfully');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Book $book)
+    
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Book $book)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Book $book)
-    {
-        //
+        $this->bookRepository->delete($id);
+        return redirect('/book/')->with('flash_message', 'Book information deleted successfully');
     }
 }

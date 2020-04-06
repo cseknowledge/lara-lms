@@ -4,92 +4,63 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\AuthorRepository;
+use App\Http\Requests\AuthorPostRequest;
+
+use App\Author;
 
 class AuthorController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $authorRepository;
+   
+    public function __construct(Author $author)
     {
         $this->middleware('auth');
+        $this->authorRepository = new AuthorRepository($author);
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $authors = $this->authorRepository->all();
+        return view('frontend.author.index', compact('authors'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        return view('frontend.author.create');
+    }
+    
+    public function store(AuthorPostRequest $request)
+    {        
+        $this->authorRepository->create($request->only($this->authorRepository->getModel()->fillable));        
+        return redirect('/author/')->with('flash_message', 'New author created successfully');
+    }
+    
+    public function show($id)
+    {
+        $author = $this->authorRepository->show($id);
+        $previousAuthorId = $this->authorRepository->getPreviousAuthorId($id);
+        $nextAuthorId = $this->authorRepository->getNextAuthorId($id);
+        return view('frontend.author.show', compact('author', 'previousAuthorId', 'nextAuthorId'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function edit($id)
     {
-        //
+        $author = $this->authorRepository->show($id);
+        $previousAuthorId = $this->authorRepository->getPreviousAuthorId($id);
+        $nextAuthorId = $this->authorRepository->getNextAuthorId($id);
+        return view('frontend.author.edit', compact('author', 'previousAuthorId', 'nextAuthorId'));
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Author  $author
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Author $author)
+    
+    public function update(AuthorPostRequest $request, $id)
     {
-        //
+        $this->authorRepository->update($request->only($this->authorRepository->getModel()->fillable), $id);
+        return redirect('/author/')->with('flash_message', 'Author updated successfully');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Author  $author
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Author $author)
+    
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Author  $author
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Author $author)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Author  $author
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Author $author)
-    {
-        //
+        $this->authorRepository->delete($id);
+        return redirect('/author/')->with('flash_message', 'Author information deleted successfully');
     }
 }

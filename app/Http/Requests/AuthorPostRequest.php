@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PublisherPostRequest extends FormRequest
+class AuthorPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,9 @@ class PublisherPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'publisher_name'        =>      'required|string|max:25'
+            'author_name'        =>      'required|string|max:25'
         ];
     }
-
     /**
      * Get the validation message that apply to the request.
      *
@@ -36,9 +35,9 @@ class PublisherPostRequest extends FormRequest
     public function messages()
     {
         return [
-            'publisher_name.required'           =>      'We want know publisher\'s name',
-            'publisher_name.string'             =>      'Please provide a valid name',
-            'publisher_name.max'                =>      'Maximum charecters length is 25'
+            'author_name.required'           =>      'We want know book\'s name',
+            'author_name.string'             =>      'Please provide a valid name',
+            'author_name.max'                =>      'Maximum charecters length is 25'
         ];
     }
 }

@@ -16,12 +16,12 @@ class Book extends Model
 
     public function author()
     {
-        return $this->belongsTo(Author::class, 'id');
+        return $this->belongsTo(Author::class, 'author_id');
     }
 
     public function publisher()
     {
-        return $this->belongsTo(Publisher::class, 'id');
+        return $this->belongsTo(Publisher::class, 'publisher_id');
     }
 
     public function booksIssued()

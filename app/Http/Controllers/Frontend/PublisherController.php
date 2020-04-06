@@ -32,8 +32,7 @@ class PublisherController extends Controller
     
     public function store(PublisherPostRequest $request)
     {        
-        $this->publisherRepository->create($request->only($this->publisherRepository->getModel()->fillable));
-        
+        $this->publisherRepository->create($request->only($this->publisherRepository->getModel()->fillable));        
         return redirect('/publisher/')->with('flash_message', 'New publisher created successfully');
     }
     
@@ -56,14 +55,12 @@ class PublisherController extends Controller
     public function update(PublisherPostRequest $request, $id)
     {
         $this->publisherRepository->update($request->only($this->publisherRepository->getModel()->fillable), $id);
-
         return redirect('/publisher/')->with('flash_message', 'Publisher updated successfully');
     }
     
     public function destroy($id)
     {
         $this->publisherRepository->delete($id);
-
         return redirect('/publisher/')->with('flash_message', 'Publisher information deleted successfully');
     }
 }

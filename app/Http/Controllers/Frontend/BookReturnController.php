@@ -4,92 +4,66 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\BookReturnRepository;
+use App\Http\Requests\BookReturnPostRequest;
+
+use App\BookReturn;
 
 class BookReturnController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $bookReturnRepository;
+   
+    public function __construct(BookReturn $bookReturn)
     {
         $this->middleware('auth');
+        $this->bookReturnRepository = new BookReturnRepository($bookReturn);
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $bookReturns = $this->bookReturnRepository->all();
+        return view('frontend.bookReturn.index', compact('bookReturns'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        return view('frontend.bookReturn.create');
+    }
+    
+    public function store(BookReturnPostRequest $request)
+    {        
+        $this->bookReturnRepository->create($request->only($this->bookReturnRepository->getModel()->fillable));
+        
+        return redirect('/bookReturn/')->with('flash_message', 'New bookReturn created successfully');
+    }
+    
+    public function show($id)
+    {
+        $bookReturn = $this->bookReturnRepository->show($id);
+        $previousBookReturnId = $this->bookReturnRepository->getPreviousBookReturnId($id);
+        $nextBookReturnId = $this->bookReturnRepository->getNextBookReturnId($id);
+        return view('frontend.bookReturn.show', compact('bookReturn', 'previousBookReturnId', 'nextBookReturnId'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function edit($id)
     {
-        //
+        $bookReturn = $this->bookReturnRepository->show($id);
+        $previousBookReturnId = $this->bookReturnRepository->getPreviousBookReturnId($id);
+        $nextBookReturnId = $this->bookReturnRepository->getNextBookReturnId($id);
+        return view('frontend.bookReturn.edit', compact('bookReturn', 'previousBookReturnId', 'nextBookReturnId'));
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\BookReturn  $bookReturn
-     * @return \Illuminate\Http\Response
-     */
-    public function show(BookReturn $bookReturn)
+    
+    public function update(BookReturnPostRequest $request, $id)
     {
-        //
+        $this->bookReturnRepository->update($request->only($this->bookReturnRepository->getModel()->fillable), $id);
+
+        return redirect('/bookReturn/')->with('flash_message', 'BookReturn updated successfully');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\BookReturn  $bookReturn
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(BookReturn $bookReturn)
+    
+    public function destroy($id)
     {
-        //
-    }
+        $this->bookReturnRepository->delete($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\BookReturn  $bookReturn
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, BookReturn $bookReturn)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\BookReturn  $bookReturn
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(BookReturn $bookReturn)
-    {
-        //
+        return redirect('/bookReturn/')->with('flash_message', 'BookReturn information deleted successfully');
     }
 }

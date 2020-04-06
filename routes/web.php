@@ -64,3 +64,12 @@ Route::get('/bookReturn/show/{id}', 'Frontend\BookReturnController@show')->name(
 Route::get('/bookReturn/edit/{id}', 'Frontend\BookReturnController@edit')->name('bookReturn.edit');
 Route::post('/bookReturn/update/{id}', 'Frontend\BookReturnController@update')->name('bookReturn.update');
 Route::get('/bookReturn/destroy/{id}', 'Frontend\BookReturnController@destroy')->name('bookReturn.destroy');
+
+
+Route::get('/user/', 'Frontend\UserController@index')->name('user.list');
+Route::get('/user/create', 'Frontend\UserController@create')->name('user.create');
+Route::post('/user/store', 'Frontend\UserController@store')->name('user.store');
+Route::get('/user/show/{id}', 'Frontend\UserController@show')->name('user.show');
+Route::get('/user/edit/{id}', 'Frontend\UserController@edit')->name('user.edit');
+Route::post('/user/update/{id}', 'Frontend\UserController@update')->name('user.update');
+Route::get('/user/destroy/{id}', 'Frontend\UserController@destroy')->name('user.destroy');

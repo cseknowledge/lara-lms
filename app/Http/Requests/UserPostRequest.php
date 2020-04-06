@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BookReturnPostRequest extends FormRequest
+class UserPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class BookReturnPostRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,8 +24,7 @@ class BookReturnPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'book_id'        =>      'required',
-            'user_id'        =>      'required',
+            'author_name'        =>      'required|string|max:25'
         ];
     }
     /**
@@ -36,8 +35,9 @@ class BookReturnPostRequest extends FormRequest
     public function messages()
     {
         return [
-            'book_id.required'           =>      'Please select a book',
-            'user_id.required'           =>      'Please select a user',
+            'author_name.required'           =>      'We want know book\'s name',
+            'author_name.string'             =>      'Please provide a valid name',
+            'author_name.max'                =>      'Maximum charecters length is 25'
         ];
     }
 }

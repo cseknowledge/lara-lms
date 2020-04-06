@@ -22,19 +22,21 @@ class BookReturnController extends Controller
     public function index()
     {
         $bookReturns = $this->bookReturnRepository->all();
-        return view('frontend.bookReturn.index', compact('bookReturns'));
+        return view('frontend.book_return.index', compact('bookReturns'));
     }
     
     public function create()
     {
-        return view('frontend.bookReturn.create');
+        $books = $this->bookReturnRepository->getBooks();
+        $users = $this->bookReturnRepository->getUsers();
+        return view('frontend.book_return.create', compact('books', 'users'));
     }
     
     public function store(BookReturnPostRequest $request)
     {        
-        $this->bookReturnRepository->create($request->only($this->bookReturnRepository->getModel()->fillable));
-        
-        return redirect('/bookReturn/')->with('flash_message', 'New bookReturn created successfully');
+        $this->bookReturnRepository->create($request->only($this->bookReturnRepository->getModel()->fillable));         
+        $this->bookReturnRepository->updateBookAvailability($request->input('book_id'), '1');      
+        return redirect('/bookReturn/create')->with('flash_message', 'Book return successfully');
     }
     
     public function show($id)
@@ -42,7 +44,7 @@ class BookReturnController extends Controller
         $bookReturn = $this->bookReturnRepository->show($id);
         $previousBookReturnId = $this->bookReturnRepository->getPreviousBookReturnId($id);
         $nextBookReturnId = $this->bookReturnRepository->getNextBookReturnId($id);
-        return view('frontend.bookReturn.show', compact('bookReturn', 'previousBookReturnId', 'nextBookReturnId'));
+        return view('frontend.book_return.show', compact('bookReturn', 'previousBookReturnId', 'nextBookReturnId'));
     }
 
     public function edit($id)
@@ -50,7 +52,7 @@ class BookReturnController extends Controller
         $bookReturn = $this->bookReturnRepository->show($id);
         $previousBookReturnId = $this->bookReturnRepository->getPreviousBookReturnId($id);
         $nextBookReturnId = $this->bookReturnRepository->getNextBookReturnId($id);
-        return view('frontend.bookReturn.edit', compact('bookReturn', 'previousBookReturnId', 'nextBookReturnId'));
+        return view('frontend.book_return.edit', compact('bookReturn', 'previousBookReturnId', 'nextBookReturnId'));
     }
     
     public function update(BookReturnPostRequest $request, $id)

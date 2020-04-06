@@ -18,7 +18,7 @@ class BooksTableSeeder extends Seeder
         for ($i = 0; $i  < 10; $i++) { 
             $book = new Book();
             $book->generated_book_id = $faker->bankAccountNumber;
-            $book->book_name = $faker->title;
+            $book->book_name = "Book Name 0".$i;
             $book->short_description = $faker->text;
             $book->author_id = mt_rand(1, 10);
             $book->publisher_id = mt_rand(1, 10);

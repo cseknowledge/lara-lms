@@ -52,7 +52,7 @@ class BookIssuedController extends Controller
         $bookIssued = $this->bookIssuedRepository->show($id);
         $previousBookIssuedId = $this->bookIssuedRepository->getPreviousBookIssuedId($id);
         $nextBookIssuedId = $this->bookIssuedRepository->getNextBookIssuedId($id);
-        $books = $this->bookIssuedRepository->getBooks();
+        $books = $this->bookIssuedRepository->getBooks($bookIssued->book_id);
         $users = $this->bookIssuedRepository->getUsers();
         return view('frontend.book_issue.edit', compact('bookIssued', 'previousBookIssuedId', 'nextBookIssuedId', 'books', 'users'));
     }

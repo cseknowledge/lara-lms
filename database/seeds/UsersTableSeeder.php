@@ -17,25 +17,26 @@ class UsersTableSeeder extends Seeder
         $faker = Faker\Factory::create();
 
         App\User::Create([
+            'member_id' => substr(date('Y'), -2).date('m').date('d')."990401",
             'name' => 'Md. Arif Dewan',
             'email' => 'arif.dewan@oscillosoft.com.au',
             'password' => Hash::make('12345678'),
             'address' => 'admin Address',
-            'member_type' => "Staff",
+            'member_type' => "Admin",
             'expiry_date' => date('Y-m-d', strtotime(date('Y-m-d')))
 
         ]);
 
-        for($i = 1; $i < 10; $i++) {
-            $user = new User();
-            $user->member_id = $faker->bankAccountNumber;
-            $user->name = $faker->name;
-            $user->email = 'user_'.$i.'@test.com';
-            $user->password = Hash::make('12345678');
-            $user->address = $faker->address;
-            $user->member_type = ($i % 2) == 0 ? "Staff" : "Member";
-            $user->expiry_date = date('Y-m-d', strtotime(date('Y-m-d')));
-            $user->save();
-        }
+        // for($i = 1; $i < 10; $i++) {
+        //     $user = new User();
+        //     $user->member_id = $faker->bankAccountNumber;
+        //     $user->name = $faker->name;
+        //     $user->email = 'user_'.$i.'@test.com';
+        //     $user->password = Hash::make('12345678');
+        //     $user->address = $faker->address;
+        //     $user->member_type = ($i % 2) == 0 ? "Staff" : "Member";
+        //     $user->expiry_date = date('Y-m-d', strtotime(date('Y-m-d')));
+        //     $user->save();
+        // }
     }
 }

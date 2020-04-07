@@ -5,7 +5,7 @@
     </div>
 
     <ul class="list-unstyled components">
-        @if(Auth::user()->member_type == "Staff") 
+        @if(Auth::user()->member_type == "Staff" || Auth::user()->member_type == "Admin") 
             <li class="{{ Request::segment(1) == '' ? 'active' : '' }}">
                 <a href="{{ route('dashboard') }}">Dashboard</a>
             </li>

@@ -35,7 +35,7 @@ class AuthorPostRequest extends FormRequest
     public function messages()
     {
         return [
-            'author_name.required'           =>      'We want know book\'s name',
+            'author_name.required'           =>      'We want know author name',
             'author_name.string'             =>      'Please provide a valid name',
             'author_name.max'                =>      'Maximum charecters length is 25'
         ];

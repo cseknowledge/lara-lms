@@ -80,7 +80,7 @@ class BookReturnRepository implements RepositoryInterface
 
     public function getBooks()
     {
-        return Book::where('is_available', '=', 0)->latest()->get();
+        return Book::where('is_available', 0)->latest()->get();
     }
 
     public function getUsers()

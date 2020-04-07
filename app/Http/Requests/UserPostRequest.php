@@ -13,7 +13,7 @@ class UserPostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UserPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'author_name'        =>      'required|string|max:25'
+            'name'          =>      'required|string|max:25',
+            'email'         =>      'required|string|email|max:255|unique:users',
+            'member_type'   =>      'required',
+            'expiry_date'   =>      'required|after:yesterday',
+            'password'      =>      'required|string|min:8'
         ];
     }
     /**
@@ -35,9 +39,20 @@ class UserPostRequest extends FormRequest
     public function messages()
     {
         return [
-            'author_name.required'           =>      'We want know book\'s name',
-            'author_name.string'             =>      'Please provide a valid name',
-            'author_name.max'                =>      'Maximum charecters length is 25'
+            'name.required'           =>      'We want know book\'s name',
+            'name.string'             =>      'Please provide a valid name',
+            'email.max'               =>      'Maximum charecters length is 25',
+            'email.required'          =>      'We want know email address',
+            'email.string'            =>      'Please provide a valid email',
+            'email.max'               =>      'Maximum charecters length is 225',
+            'email.email'             =>      'Please provide a valid email',
+            'email.unique'            =>      'This email already exists',
+            'member_type.required'    =>      'Please provide user type',
+            'expiry_date.required'    =>      'Please provide user expiry date',
+            'expiry_date.after'       =>      'Expiry date is not acceptable before today',
+            'password.required'       =>      'Please provide a password',
+            'password.string'         =>      'Please provide a valid pawwsord',
+            'password.min'            =>      'Minimum password length is 8'
         ];
     }
 }

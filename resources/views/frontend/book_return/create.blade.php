@@ -22,7 +22,7 @@
                                     <option value="">Select an book</option>
                                     @isset($books)
                                     @foreach($books as $book)
-                                        <option value="{{ $book->id }}" {{ $book->id == old('book_id') ? 'Selected' : '' }}>{{ $book->book_name }}</option>
+                                        <option value="{{ $book->id }}" {{ $book->id == old('book_id') ? 'Selected' : '' }}>{{ $book->book_name." ".$book->user_id }}</option>
                                     @endforeach
                                     @endisset
                                 </select>

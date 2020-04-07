@@ -54,7 +54,7 @@
                                     @endisset
                                 </select>
                             </div>
-                            @error('$publisher->id')
+                            @error('publisher_id')
                                 <p class="alert alert-danger">{{ $message }}</p>
                             @enderror
                         </div> 

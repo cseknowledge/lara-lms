@@ -50,11 +50,26 @@
                             <div class="col-md-6 offset-3">
                                 <select class="form-control" id="member_type_list" name="member_type">
                                     <option value="">Select an member type</option>
-                                    <option value="Staff">Staff</option>
-                                    <option value="Member">Member</option>
+                                    <option value="Staff" {{ "Staff" == old('member_type') ? 'Selected' : '' }}>Staff</option>
+                                    <option value="Member" {{ "Member" == old('member_type') ? 'Selected' : '' }}>Member</option>
                                 </select>
                             </div>
                             @error('member_type')
+                                <p class="alert alert-danger">{{ $message }}</p>
+                            @enderror
+                        </div>    
+
+                        <div class="form-group">
+                            <label class="col-md-6 offset-3 control-label">Expiry Date</label>  
+                            <div class="col-md-6 offset-3">
+                                <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                    <input class="form-control" size="16" type="text" value="{{ Carbon\Carbon::parse(old('expiry_date'))->format('Y-m-d') }}">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                                <input name="expiry_date" type="hidden" id="dtp_input2" value="{{ Carbon\Carbon::parse(old('expiry_date'))->format('Y-m-d') }}" />
+                            </div>
+                            @error('expiry_date')
                                 <p class="alert alert-danger">{{ $message }}</p>
                             @enderror
                         </div>     
@@ -62,7 +77,7 @@
                         <div class="form-group">
                             <label class="col-md-6 offset-3 control-label">Password</label>  
                             <div class="col-md-6 offset-3">
-                                <input  name="password" placeholder="Password" class="form-control" value="{{ old('password') }}" type="password">
+                                <input  name="password" placeholder="Password" class="form-control" value="" type="password">
                             </div>
                             @error('password')
                                 <p class="alert alert-danger">{{ $message }}</p>

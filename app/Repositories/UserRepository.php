@@ -3,6 +3,9 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+
+use Carbon\Carbon;
 
 class UserRepository implements RepositoryInterface
 {
@@ -24,14 +27,19 @@ class UserRepository implements RepositoryInterface
     // create a new record in the database
     public function create(array $data)
     {
-        return $this->model->create($data);
+        $userData = $data;
+        $userData['password'] = Hash::make($data['password']);
+        $userData['member_id'] = $this->generateMemberId($data['expiry_date']);
+        return $this->model->create($userData);
     }
 
     // update record in the database
     public function update(array $data, $id)
     {
         $record = $this->model->findOrFail($id);
-        return $record->update($data);
+        $userData = $data;
+        $userData['password'] = Hash::make($data['password']);
+        return $record->update($userData);
     }
 
     // remove record from the database
@@ -73,5 +81,10 @@ class UserRepository implements RepositoryInterface
     public function getNextUserId($id)
     {
         return $this->model->where('id', '>', $id)->min('id');
+    }
+
+    public function generateMemberId($data)
+    {
+        return substr(date('Y'), -2).date('m').date('d').substr(Carbon::parse($data)->format('Y'), -2).Carbon::parse($data)->format('m').$this->all()->count()+1;
     }
 }

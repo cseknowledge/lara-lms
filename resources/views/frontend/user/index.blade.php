@@ -12,40 +12,40 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>Book Name</th>
-                        <th>Author Name</th>
-                        <th>Publisher Name</th>
-                        <th>price</th>
-                        <th>Short Description</th>
-                        <th>Availability</th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>User Type</th>
+                        <th>Address</th>
+                        <th>Expiry Date</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
-                        <th>Book Name</th>
-                        <th>Author Name</th>
-                        <th>Publisher Name</th>
-                        <th>price</th>
-                        <th>Short Description</th>
-                        <th>Availability</th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>User Type</th>
+                        <th>Address</th>
+                        <th>Expiry Date</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>
                     <tbody>
-                    @isset($books)
-                    @foreach($books as $book)
+                    @isset($users)
+                    @foreach($users as $user)
                         <tr>
-                            <td>{{ $book->book_name }}</td>
-                            <td>{{ $book->author->author_name }}</td>
-                            <td>{{ $book->publisher->publisher_name }}</td>
-                            <td>{{ $book->price }}</td>
-                            <td>{{ $book->short_description }}</td>
-                            <td>{{ $book->is_available == 1 ? "Available" : "Not Available" }}</td>
+                            <td>{{ $user->member_id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->member_type }}</td>
+                            <td>{{ $user->address }}</td>
+                            <td>{{ $user->expiry_date }}</td>
                             <td>
-                                <a class="btn btn-sm btn-success" href="{{ url('/book/show/'.$book->id) }}">View</a> | 
-                                <a class="btn btn-sm btn-warning" href="{{ url('/book/edit/'.$book->id) }}">Edit</a> | 
-                                <a class="btn btn-sm btn-danger" href="{{ url('/book/destroy/'.$book->id) }}">Delete</a>
+                                <a class="btn btn-sm btn-success" href="{{ url('/user/show/'.$user->id) }}">View</a> | 
+                                <a class="btn btn-sm btn-warning" href="{{ url('/user/edit/'.$user->id) }}">Edit</a> | 
+                                <a class="btn btn-sm btn-danger" href="{{ (Auth::user()->member_type == 'Admin') ? 'javascript:;' : url('/user/destroy/'.$user->id) }}" {{ (Auth::user()->member_type) == 'Admin' ? 'disabled' : '' }}>Delete</a>
                             </td>
                         </tr>
                     @endforeach

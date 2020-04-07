@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Response;
 use App\Book;
 use App\User;
 
@@ -78,9 +78,16 @@ class BookIssuedRepository implements RepositoryInterface
         return $this->model->where('id', '>', $id)->min('id');
     }
 
-    public function getBooks()
+    public function getBooks($id='')
     {
-        return Book::where('is_available', '=', 1)->latest()->get();
+        if($id == '') {
+            return Book::where('is_available', 1)->latest()->get();
+        } else {
+            $issuedBook = Book::where('id', $id)->get();
+            $availableBook = Book::where('is_available', 1)->get();
+            $list = $issuedBook->merge($availableBook);
+            return $list;            
+        }
     }
 
     public function getUsers()

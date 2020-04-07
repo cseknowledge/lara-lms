@@ -20,7 +20,7 @@
                             <div class="col-md-6 offset-3">
                                 <input  name="author_name" placeholder="Author Name" class="form-control" value="{{ old('author_name') }}" type="text">
                             </div>
-                            @error('publisher_name')
+                            @error('author_name')
                                 <p class="alert alert-danger">{{ $message }}</p>
                             @enderror
                         </div>         
@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label class="col-md-6 offset-3 control-label">Short Description</label>  
                             <div class="col-md-6 offset-3">
-                                <textarea  name="short_description" placeholder="Short Description" class="form-control" value="{{ old('short_description') }}" type="text"></textarea>
+                                <textarea  name="short_description" placeholder="Short Description" class="form-control" value="" type="text">{{ old('short_description') }}</textarea>
                             </div>
                             @error('short_description')
                                 <p class="alert alert-danger">{{ $message }}</p>

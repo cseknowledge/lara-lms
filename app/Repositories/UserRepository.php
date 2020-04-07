@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Auth;
 
 use Carbon\Carbon;
 
@@ -86,5 +88,13 @@ class UserRepository implements RepositoryInterface
     public function generateMemberId($data)
     {
         return substr(date('Y'), -2).date('m').date('d').substr(Carbon::parse($data)->format('Y'), -2).Carbon::parse($data)->format('m').$this->all()->count()+1;
+    }
+
+    public function updatePassword(array $data)
+    {
+        $affected = DB::table('users')
+              ->where('id', Auth::user()->id)
+              ->update(['password' => Hash::make($data['password'])]);
+        return $affected;
     }
 }

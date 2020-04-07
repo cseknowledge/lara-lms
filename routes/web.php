@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/', 'Frontend\DashboardController@index')->name('dashboard');
+Route::get('/dashboard', 'Frontend\DashboardController@index')->name('dashboard');
 
 Route::get('/publisher/', 'Frontend\PublisherController@index')->name('publisher.list');
 Route::get('/publisher/create', 'Frontend\PublisherController@create')->name('publisher.create');
@@ -73,3 +74,7 @@ Route::get('/user/show/{id}', 'Frontend\UserController@show')->name('user.show')
 Route::get('/user/edit/{id}', 'Frontend\UserController@edit')->name('user.edit');
 Route::post('/user/update/{id}', 'Frontend\UserController@update')->name('user.update');
 Route::get('/user/destroy/{id}', 'Frontend\UserController@destroy')->name('user.destroy');
+Route::get('/user/changePassword/', 'Frontend\UserController@changePassword')->name('user.change.password');
+Route::get('/user/changePassword/{id}', 'Frontend\UserController@changePassword')->name('user.change.password');
+Route::post('/user/updatePassword/', 'Frontend\UserController@updatePassword')->name('user.update.password');
+Route::post('/user/updatePassword/{id}', 'Frontend\UserController@updatePassword')->name('user.update.password');

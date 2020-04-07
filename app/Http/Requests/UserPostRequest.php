@@ -25,7 +25,7 @@ class UserPostRequest extends FormRequest
     {
         return [
             'name'          =>      'required|string|max:25',
-            'email'         =>      'required|string|email|max:255|unique:users',
+            'email'         =>      'required|string|email|max:255|unique:users,email,'.$this->id,
             'member_type'   =>      'required',
             'expiry_date'   =>      'required|after:yesterday',
             'password'      =>      'required|string|min:8'

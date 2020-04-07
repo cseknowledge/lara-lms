@@ -63,4 +63,16 @@ class UserController extends Controller
         $this->userRepository->delete($id);
         return redirect('/user/')->with('flash_message', 'User information deleted successfully');
     }
+
+    public function changePassword($location='')
+    {
+        return view('frontend.user.change_password', compact('location'));
+    }
+
+    public function updatePassword(Request $request, $location='')
+    {
+        $this->userRepository->updatePassword($request->only($this->userRepository->getModel()->fillable));
+        $redirectLocation = $location == '' ? 'dashboard' : $location;
+        return redirect('/'.$redirectLocation.'/')->with('flash_message', 'User information updated successfully');
+    }
 }

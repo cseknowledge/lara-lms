@@ -18,10 +18,10 @@ class UsersTableSeeder extends Seeder
 
         App\User::Create([
             'member_id' => substr(date('Y'), -2).date('m').date('d')."990401",
-            'name' => 'Md. Arif Dewan',
-            'email' => 'arif.dewan@oscillosoft.com.au',
+            'name' => 'Admin',
+            'email' => 'admin@test.com',
             'password' => Hash::make('12345678'),
-            'address' => 'admin Address',
+            'address' => 'Admin Address',
             'member_type' => "Admin",
             'expiry_date' => date('Y-m-d', strtotime(date('Y-m-d')))
 

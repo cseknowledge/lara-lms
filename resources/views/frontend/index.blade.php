@@ -23,7 +23,7 @@
         <nav>
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav-issued-book" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Booke Issued</a>
-                <a class="nav-item nav-link" id="nav-return-book" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Project Tab 2</a>
+                <a class="nav-item nav-link" id="nav-return-book" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Book Return</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">

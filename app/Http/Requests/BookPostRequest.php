@@ -27,6 +27,7 @@ class BookPostRequest extends FormRequest
             'book_name'        =>      'required|string|max:25',
             'author_id'        =>      'required',
             'publisher_id'     =>      'required',
+            'quantity'         =>      'required|numeric',
             'price'            =>      'required|numeric'
         ];
     }
@@ -43,6 +44,8 @@ class BookPostRequest extends FormRequest
             'book_name.max'                =>      'Maximum charecters length is 25',
             'author_id.required'           =>      'Please provide author name',
             'publisher_id.required'        =>      'Please provide publisher name',
+            'quantity.required'            =>      'Please provide book\'s quantity',
+            'quantity.numeric'             =>      'Please provide valid quantity',
             'price.required'               =>      'Please provide book\'s price',
             'price.numeric'                =>      'Please provide valid price'
         ];

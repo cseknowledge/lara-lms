@@ -3,11 +3,11 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
-use Response;
+use Auth;
 use App\Book;
 use App\User;
 
-class BookIssuedRepository implements RepositoryInterface
+class BookReviewRepository implements RepositoryInterface
 {
     // model property on class instances
     protected $model;
@@ -21,7 +21,10 @@ class BookIssuedRepository implements RepositoryInterface
     // Get all instances of model
     public function all()
     {
-        return $this->model->all();
+        $loggedUserList = $this->model->where('user_id', '=', Auth::user()->id)->get();
+        $utherUsersList = $this->model->where('user_id', '!=', Auth::user()->id)->get();
+        $list = $loggedUserList->merge($utherUsersList);
+        return $list;
     }
 
     // create a new record in the database
@@ -46,7 +49,7 @@ class BookIssuedRepository implements RepositoryInterface
     // show the record with the given id
     public function show($id)
     {
-        return $this->model->findOrFail($id);
+        return $this->model->with('book')->with('user')->findOrFail($id);
     }
 
     // Get the associated model
@@ -68,38 +71,31 @@ class BookIssuedRepository implements RepositoryInterface
         return $this->model->with($relations);
     }
 
-    public function getPreviousBookIssuedId($id)
+    public function getPreviousBookReviewId($id, $action='')
     {
-        return $this->model->where('id', '<', $id)->max('id');
-    }
-
-    public function getNextBookIssuedId($id)
-    {
-        return $this->model->where('id', '>', $id)->min('id');
-    }
-
-    public function getBooks($id='')
-    {
-        if($id == '') {
-            return Book::where('is_available', 1)->latest()->get();
+        if($action == '') {
+            return $this->model->where('id', '<', $id)->max('id');
         } else {
-            $issuedBook = Book::where('id', $id)->get();
-            $availableBook = Book::where('is_available', 1)->get();
-            $list = $issuedBook->merge($availableBook);
-            return $list;            
+            return $this->model->where('id', '<', $id)->where('user_id', '=', Auth::user()->id)->max('id');
         }
+    }
+
+    public function getNextBookReviewId($id, $action='')
+    {
+        if($action == '') {
+            return $this->model->where('id', '>', $id)->min('id');
+        } else {
+            return $this->model->where('id', '>', $id)->where('user_id', '=', Auth::user()->id)->min('id');
+        }        
+    }
+
+    public function getBooks()
+    {
+        return Book::all();
     }
 
     public function getUsers()
     {
-        $today = date('Y-m-d', strtotime("today midnight". ' + 7 days'));
-        return User::where('expiry_date', '>=', $today)->latest()->get();
-    }
-
-    public function updateBookAvailability($id, $status)
-    {
-        $book = Book::findOrFail($id);
-        $book->is_available = $status;
-        $book->save();
+        return User::all();
     }
 }

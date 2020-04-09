@@ -44,8 +44,8 @@
                             <td>{{ $user->expiry_date }}</td>
                             <td>
                                 <a class="btn btn-sm btn-success" href="{{ url('/user/show/'.$user->id) }}">View</a> | 
-                                <a class="btn btn-sm btn-warning" href="{{ url('/user/edit/'.$user->id) }}">Edit</a> | 
-                                <a class="btn btn-sm btn-danger" href="{{ (Auth::user()->member_type == 'Admin') ? 'javascript:;' : url('/user/destroy/'.$user->id) }}" {{ (Auth::user()->member_type) == 'Admin' ? 'disabled' : '' }}>Delete</a>
+                                <a class="btn btn-sm btn-warning {{ (Auth::user()->id == $user->id) ? 'disabled' : '' }}" href="{{ url('/user/edit/'.$user->id) }}">Edit</a> | 
+                                <a class="btn btn-sm btn-danger {{ (Auth::user()->id == $user->id) ? 'disabled' : '' }}" href="{{ (Auth::user()->member_type == 'Super Admin') ? 'javascript:;' : url('/user/destroy/'.$user->id) }}">Delete</a>
                             </td>
                         </tr>
                     @endforeach

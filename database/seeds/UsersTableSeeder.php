@@ -22,21 +22,24 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@test.com',
             'password' => Hash::make('12345678'),
             'address' => 'Admin Address',
-            'member_type' => "Admin",
+            'member_type' => "Super Admin",
             'expiry_date' => date('Y-m-d', strtotime(date('Y-m-d')))
 
         ]);
 
-        // for($i = 1; $i < 10; $i++) {
-        //     $user = new User();
-        //     $user->member_id = $faker->bankAccountNumber;
-        //     $user->name = $faker->name;
-        //     $user->email = 'user_'.$i.'@test.com';
-        //     $user->password = Hash::make('12345678');
-        //     $user->address = $faker->address;
-        //     $user->member_type = ($i % 2) == 0 ? "Staff" : "Member";
-        //     $user->expiry_date = date('Y-m-d', strtotime(date('Y-m-d')));
-        //     $user->save();
-        // }
+        $member_type = array('Admin', 'Librarian', 'Student');
+
+        for($i = 1; $i < 10; $i++) {
+            $user = new User();
+            $random_member_type = array_rand($member_type, 1);
+            $user->member_id = $faker->bankAccountNumber;
+            $user->name = $faker->name;
+            $user->email = 'user_'.$i.'@test.com';
+            $user->password = Hash::make('12345678');
+            $user->address = $faker->address;
+            $user->member_type = $member_type[$random_member_type];
+            $user->expiry_date = date('Y-m-d', strtotime(date('Y-m-d')));
+            $user->save();
+        }
     }
 }

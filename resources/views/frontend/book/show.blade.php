@@ -21,6 +21,10 @@
                         <div class="col-md-4">{{ isset($book) ? $book->publisher->publisher_name : '' }}</div>
                     </div>
                     <div class="row">
+                        <div class="col-md-4">Quantity</div>
+                        <div class="col-md-4">{{ isset($book) ? $book->quantity : '' }}</div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-4">Price</div>
                         <div class="col-md-4">{{ isset($book) ? $book->price : '' }}</div>
                     </div>

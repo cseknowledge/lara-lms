@@ -11,7 +11,7 @@
 <link href="{{ asset('assets/frontend/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
 <style type="text/css">
-    tr > td:last-child {
+    table.dataTable tr > td:last-child {
         width: 185px;
     }
 </style>

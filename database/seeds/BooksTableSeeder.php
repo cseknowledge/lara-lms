@@ -22,6 +22,7 @@ class BooksTableSeeder extends Seeder
             $book->short_description = $faker->text;
             $book->author_id = mt_rand(1, 10);
             $book->publisher_id = mt_rand(1, 10);
+            $book->quantity = mt_rand(1, 10);
             $book->price = $faker->randomNumber(3);
             $book->is_available = $faker->boolean;
             $book->save();

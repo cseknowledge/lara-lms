@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BookReturn extends Model
+class bookReview extends Model
 {
-    protected $table = 'book_returns';
+    protected $table = 'book_reviews';
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['return_date', 'book_id', 'user_id', 'return_problem', 'short_description'];
+    protected $fillable = ['book_id', 'user_id', 'book_review'];
 
     //protected $guarded = [];
 
@@ -23,5 +23,4 @@ class BookReturn extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
 }

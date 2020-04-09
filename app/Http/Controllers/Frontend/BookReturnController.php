@@ -33,7 +33,7 @@ class BookReturnController extends Controller
     }
     
     public function store(BookReturnPostRequest $request)
-    {        
+    {   //Calculate lost & quantity based availability     
         $this->bookReturnRepository->create($request->only($this->bookReturnRepository->getModel()->fillable));         
         $this->bookReturnRepository->updateBookAvailability($request->input('book_id'), '1');      
         return redirect('/bookReturn/create')->with('flash_message', 'Book return successfully');

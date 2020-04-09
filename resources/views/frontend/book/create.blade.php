@@ -60,6 +60,16 @@
                         </div> 
 
                         <div class="form-group">
+                            <label class="col-md-6 offset-3 control-label">Book Quantity</label>  
+                            <div class="col-md-6 offset-3">
+                                <input  name="quantity" placeholder="Book Quantity" class="form-control" value="{{ old('quantity') }}" type="text">
+                            </div>
+                            @error('quantity')
+                                <p class="alert alert-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label class="col-md-6 offset-3 control-label">Book Price</label>  
                             <div class="col-md-6 offset-3">
                                 <input  name="price" placeholder="Book Price" class="form-control" value="{{ old('price') }}" type="text">

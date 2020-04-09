@@ -16,6 +16,7 @@
                         <th>Author Name</th>
                         <th>Publisher Name</th>
                         <th>price</th>
+                        <th>Quantity</th>
                         <th>Short Description</th>
                         <th>Availability</th>
                         <th>Action</th>
@@ -27,6 +28,7 @@
                         <th>Author Name</th>
                         <th>Publisher Name</th>
                         <th>price</th>
+                        <th>Quantity</th>
                         <th>Short Description</th>
                         <th>Availability</th>
                         <th>Action</th>
@@ -40,6 +42,7 @@
                             <td>{{ $book->author->author_name }}</td>
                             <td>{{ $book->publisher->publisher_name }}</td>
                             <td>{{ $book->price }}</td>
+                            <td>{{ $book->quantity }}</td>
                             <td>{{ $book->short_description }}</td>
                             <td>{{ $book->is_available == 1 ? "Available" : "Not Available" }}</td>
                             <td>

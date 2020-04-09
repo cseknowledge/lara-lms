@@ -10,7 +10,7 @@ class Book extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['generated_book_id', 'book_name', 'short_description', 'author_id', 'publisher_id', 'price', 'is_available'];
+    protected $fillable = ['generated_book_id', 'book_name', 'short_description', 'author_id', 'publisher_id', 'quantity', 'price', 'is_available'];
 
     //protected $guarded = [];
 
@@ -32,5 +32,10 @@ class Book extends Model
     public function booksReturend()
     {
         return $this->hasMany(BookReturn::class, 'book_id');
+    }
+
+    public function booksReviews()
+    {
+        return $this->hasMany(BookReview::class, 'book_id');
     }
 }

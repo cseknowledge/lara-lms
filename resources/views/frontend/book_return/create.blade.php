@@ -47,7 +47,32 @@
                             @error('user_id')
                                 <p class="alert alert-danger">{{ $message }}</p>
                             @enderror
+                        </div>  
+                                                   
+                        <div class="form-group">
+                            <label class="col-md-6 offset-3 control-label">Return Issue</label>  
+                            <div class="col-md-6 offset-3">
+                                <select class="form-control" id="user_list" name="return_problem">
+                                    <option value="">Select a issue if exists</option>
+                                    <option value="Damage" {{ "Damage" == old('return_problem') ? 'Selected' : '' }}>Damage</option>
+                                    <option value="Lost" {{ "Lost" == old('return_problem') ? 'Selected' : '' }}>Lost</option>
+                                    <option value="Date Expired" {{ "Date Expired" == old('return_problem') ? 'Selected' : '' }}>Date Expired</option>
+                                </select>
+                            </div>
+                            @error('return_problem')
+                                <p class="alert alert-danger">{{ $message }}</p>
+                            @enderror
                         </div> 
+                        
+                        <div class="form-group">
+                            <label class="col-md-6 offset-3 control-label">Short Description</label>  
+                            <div class="col-md-6 offset-3">
+                                <textarea  name="short_description" placeholder="Short Description" class="form-control" value="{{ old('short_description') }}" type="text"></textarea>
+                            </div>
+                            @error('short_description')
+                                <p class="alert alert-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </fieldset>
                     <div class="clearfix"></div> 
                     <div class="col-md-7 offset-5 custom-margin">  

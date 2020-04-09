@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\BookRepository;
 use App\Http\Requests\BookPostRequest;
+use Illuminate\Support\Facades\DB;
 
 use App\Book;
 

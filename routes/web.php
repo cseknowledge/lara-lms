@@ -67,6 +67,15 @@ Route::post('/bookReturn/update/{id}', 'Frontend\BookReturnController@update')->
 Route::get('/bookReturn/destroy/{id}', 'Frontend\BookReturnController@destroy')->name('bookReturn.destroy');
 
 
+Route::get('/bookReview/', 'Frontend\BookReviewController@index')->name('bookReview.list');
+Route::get('/bookReview/create', 'Frontend\BookReviewController@create')->name('bookReview.create');
+Route::post('/bookReview/store', 'Frontend\BookReviewController@store')->name('bookReview.store');
+Route::get('/bookReview/show/{id}', 'Frontend\BookReviewController@show')->name('bookReview.show');
+Route::get('/bookReview/edit/{id}', 'Frontend\BookReviewController@edit')->name('bookReview.edit');
+Route::post('/bookReview/update/{id}', 'Frontend\BookReviewController@update')->name('bookReview.update');
+Route::get('/bookReview/destroy/{id}', 'Frontend\BookReviewController@destroy')->name('bookReview.destroy');
+
+
 Route::get('/user/', 'Frontend\UserController@index')->name('user.list');
 Route::get('/user/create', 'Frontend\UserController@create')->name('user.create');
 Route::post('/user/store', 'Frontend\UserController@store')->name('user.store');

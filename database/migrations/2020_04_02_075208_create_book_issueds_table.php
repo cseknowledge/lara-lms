@@ -17,6 +17,7 @@ class CreateBookIssuedsTable extends Migration
             $table->id();
             $table->date('issue_date');
             $table->date('return_date');
+            $table->integer('quantity')->nullable();
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

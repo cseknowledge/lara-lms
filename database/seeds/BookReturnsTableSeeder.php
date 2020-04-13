@@ -23,6 +23,7 @@ class BookReturnsTableSeeder extends Seeder
             $bookReturn->return_date = $faker->date($format = 'Y-m-d', $max = 'now');
             $bookReturn->book_id = mt_rand(1, 10);
             $bookReturn->user_id = mt_rand(1, 10);
+            $bookReturn->quantity = mt_rand(1, 10);
             $bookReturn->return_problem = $return_problem[$random_return_problem];
             $bookReturn->short_description = $faker->text;
             $bookReturn->save();

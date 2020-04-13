@@ -10,7 +10,7 @@ class BookReturn extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['return_date', 'book_id', 'user_id', 'return_problem', 'short_description'];
+    protected $fillable = ['return_date', 'book_id', 'user_id', 'quantity', 'return_problem', 'short_description'];
 
     //protected $guarded = [];
 

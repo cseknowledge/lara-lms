@@ -76,6 +76,15 @@ Route::post('/bookReview/update/{id}', 'Frontend\BookReviewController@update')->
 Route::get('/bookReview/destroy/{id}', 'Frontend\BookReviewController@destroy')->name('bookReview.destroy');
 
 
+Route::get('/bookSuggest/', 'Frontend\BookSuggestController@index')->name('bookSuggest.list');
+Route::get('/bookSuggest/create', 'Frontend\BookSuggestController@create')->name('bookSuggest.create');
+Route::post('/bookSuggest/store', 'Frontend\BookSuggestController@store')->name('bookSuggest.store');
+Route::get('/bookSuggest/show/{id}', 'Frontend\BookSuggestController@show')->name('bookSuggest.show');
+Route::get('/bookSuggest/edit/{id}', 'Frontend\BookSuggestController@edit')->name('bookSuggest.edit');
+Route::post('/bookSuggest/update/{id}', 'Frontend\BookSuggestController@update')->name('bookSuggest.update');
+Route::get('/bookSuggest/destroy/{id}', 'Frontend\BookSuggestController@destroy')->name('bookSuggest.destroy');
+
+
 Route::get('/user/', 'Frontend\UserController@index')->name('user.list');
 Route::get('/user/create', 'Frontend\UserController@create')->name('user.create');
 Route::post('/user/store', 'Frontend\UserController@store')->name('user.store');

@@ -21,6 +21,7 @@ class BookIssuedsTableSeeder extends Seeder
             $bookIssued = new BookIssued();
             $bookIssued->issue_date = $issue_date;
             $bookIssued->return_date = $return_date;
+            $bookIssued->quantity = mt_rand(1, 10);
             $bookIssued->book_id = mt_rand(1, 10);
             $bookIssued->user_id = mt_rand(1, 10);
             $bookIssued->save();

@@ -17,7 +17,8 @@ class CreateBookReturnsTable extends Migration
             $table->id();
             $table->date('return_date');
             $table->unsignedBigInteger('book_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id');            
+            $table->integer('quantity')->nullable();
             $table->string('return_problem')->nullable();
             $table->string('short_description')->nullable();
             $table->timestamps();

@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(BookReview::class, 'user_id');
     }
+
+    public function booksSuggests()
+    {
+        return $this->hasMany(BookSuggest::class, 'user_id');
+    }
 }

@@ -4,8 +4,8 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Author;
-use App\Publisher;
+use App\Models\Author;
+use App\Models\Publisher;
 
 class BookRepository implements RepositoryInterface
 {

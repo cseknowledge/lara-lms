@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\AuthorRepository;
 use App\Http\Requests\AuthorPostRequest;
 
-use App\Author;
+use App\Models\Author;
 
 class AuthorController extends Controller
 {

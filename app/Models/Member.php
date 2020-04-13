@@ -1,16 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BookSuggest extends Model
+class Member extends Model
 {
-    protected $table = 'book_suggests';
+    protected $table = 'members';
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['book_name', 'author_name', 'publisher_name', 'user_id', 'short_description'];
+    protected $fillable = ['user_id', 'address', 'member_type', 'member_date', 'expiry_date'];
 
     //protected $guarded = [];    
 

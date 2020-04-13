@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\BookIssuedRepository;
 use App\Http\Requests\BookIssuedPostRequest;
 
-use App\BookIssued;
+use App\Models\BookIssued;
 
 class BookIssuedController extends Controller
 {
@@ -53,7 +53,7 @@ class BookIssuedController extends Controller
         $previousBookIssuedId = $this->bookIssuedRepository->getPreviousBookIssuedId($id);
         $nextBookIssuedId = $this->bookIssuedRepository->getNextBookIssuedId($id);
         $books = $this->bookIssuedRepository->getBooks($bookIssued->book_id);
-        $users = $this->bookIssuedRepository->getUsers();
+        $users = $this->bookIssuedRepository->getUsers('edit');
         return view('frontend.book_issue.edit', compact('bookIssued', 'previousBookIssuedId', 'nextBookIssuedId', 'books', 'users'));
     }
     

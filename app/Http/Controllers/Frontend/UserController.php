@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 use App\Http\Requests\UserPostRequest;
 
-use App\User;
+use App\Models\User;
 
 class UserController extends Controller
 {

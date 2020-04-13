@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,5 +55,20 @@ class User extends Authenticatable
     public function booksSuggests()
     {
         return $this->hasMany(BookSuggest::class, 'user_id');
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class, 'user_id');
+    }
+
+    public function messages_to()
+    {
+        return $this->hasMany(Message::class, 'message_to');
+    }
+
+    public function messages_from()
+    {
+        return $this->hasMany(Message::class, 'message_from');
     }
 }

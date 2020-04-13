@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-use App\User;
+use App\Models\User;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        App\User::Create([
+        App\Models\User::Create([
             'member_id' => substr(date('Y'), -2).date('m').date('d')."990401",
             'name' => 'Admin',
             'email' => 'admin@test.com',

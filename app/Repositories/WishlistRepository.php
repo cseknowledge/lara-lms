@@ -5,10 +5,10 @@ namespace App\Repositories;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
 use DB;
-use App\Models\BookSugget;
-use App\Models\User;
 
-class BookSuggestRepository implements RepositoryInterface
+use App\Models\Book;
+
+class WishlistRepository implements RepositoryInterface
 {
     // model property on class instances
     protected $model;
@@ -23,11 +23,6 @@ class BookSuggestRepository implements RepositoryInterface
     public function all()
     {
         return $this->model->where('user_id', '=', Auth::user()->id)->get();
-        // $list_of_book_suggests = DB::table('book_suggests')        
-        // ->select('book_name', DB::raw('count(*) as total'))
-        // ->groupBy('book_name')
-        // ->pluck('total','book_name')->all();
-        // dd($list_of_book_suggests);
     }
 
     // create a new record in the database
@@ -74,13 +69,18 @@ class BookSuggestRepository implements RepositoryInterface
         return $this->model->with($relations);
     }
 
-    public function getPreviousBookSuggestId($id)
+    public function getPreviousWishlistId($id)
     {
         return $this->model->where('id', '<', $id)->where('user_id', '=', Auth::user()->id)->max('id');
     }
 
-    public function getNextBookSuggestId($id)
+    public function getNextWishlistId($id)
     {
         return $this->model->where('id', '>', $id)->where('user_id', '=', Auth::user()->id)->min('id');
+    }
+
+    public function getBooks($id='')
+    {
+        return Book::where('quantity', '=', 0)->latest()->get();
     }
 }

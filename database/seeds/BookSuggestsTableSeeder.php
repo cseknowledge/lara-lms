@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use App\BookSuggest;
+use App\Models\BookSuggest;
 
 class BookSuggestsTableSeeder extends Seeder
 {

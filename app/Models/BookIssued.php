@@ -1,18 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class bookReview extends Model
+class BookIssued extends Model
 {
-    protected $table = 'book_reviews';
+    protected $table = 'book_issueds';
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['book_id', 'user_id', 'book_review'];
+    protected $fillable = ['issue_date', 'return_date', 'quantity', 'book_id', 'user_id', 'issued_by', 'is_apparoved'];
 
-    //protected $guarded = [];
+    //protected $guarded = [];    
 
     public function book()
     {

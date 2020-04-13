@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,5 +37,10 @@ class Book extends Model
     public function booksReviews()
     {
         return $this->hasMany(BookReview::class, 'book_id');
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(wishlist::class, 'book_id');
     }
 }

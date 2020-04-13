@@ -85,6 +85,24 @@ Route::post('/bookSuggest/update/{id}', 'Frontend\BookSuggestController@update')
 Route::get('/bookSuggest/destroy/{id}', 'Frontend\BookSuggestController@destroy')->name('bookSuggest.destroy');
 
 
+Route::get('/message/', 'Frontend\MessageController@index')->name('message.list');
+Route::get('/message/create', 'Frontend\MessageController@create')->name('message.create');
+Route::post('/message/store', 'Frontend\MessageController@store')->name('message.store');
+Route::get('/message/show/{id}', 'Frontend\MessageController@show')->name('message.show');
+Route::get('/message/edit/{id}', 'Frontend\MessageController@edit')->name('message.edit');
+Route::post('/message/update/{id}', 'Frontend\MessageController@update')->name('message.update');
+Route::get('/message/destroy/{id}', 'Frontend\MessageController@destroy')->name('message.destroy');
+
+
+Route::get('/wishlist/', 'Frontend\WishlistController@index')->name('wishlist.list');
+Route::get('/wishlist/create', 'Frontend\WishlistController@create')->name('wishlist.create');
+Route::post('/wishlist/store', 'Frontend\WishlistController@store')->name('wishlist.store');
+Route::get('/wishlist/show/{id}', 'Frontend\WishlistController@show')->name('wishlist.show');
+Route::get('/wishlist/edit/{id}', 'Frontend\WishlistController@edit')->name('wishlist.edit');
+Route::post('/wishlist/update/{id}', 'Frontend\WishlistController@update')->name('wishlist.update');
+Route::get('/wishlist/destroy/{id}', 'Frontend\WishlistController@destroy')->name('wishlist.destroy');
+
+
 Route::get('/user/', 'Frontend\UserController@index')->name('user.list');
 Route::get('/user/create', 'Frontend\UserController@create')->name('user.create');
 Route::post('/user/store', 'Frontend\UserController@store')->name('user.store');

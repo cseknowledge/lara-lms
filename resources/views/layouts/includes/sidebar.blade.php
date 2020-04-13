@@ -71,6 +71,50 @@
             <li class="{{ Request::segment(1) == '' ? 'active' : '' }}">
                 <a href="{{ route('dashboard') }}">Dashboard</a>
             </li>
+            <li class="{{ Request::segment(1) == 'bookReview' ? 'active' : '' }}">
+                <a href="#reviewSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Book Review</a>
+                <ul class="collapse list-unstyled" id="reviewSubmenu">
+                    <li>
+                        <a href="{{ route('bookReview.create') }}">Add New Review</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('bookReview.list') }}">Review List</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="{{ Request::segment(1) == 'bookSuggest' ? 'active' : '' }}">
+                <a href="#suggestSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Book Suggest</a>
+                <ul class="collapse list-unstyled" id="suggestSubmenu">
+                    <li>
+                        <a href="{{ route('bookSuggest.create') }}">Add New Suggest</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('bookSuggest.list') }}">Suggest List</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="{{ Request::segment(1) == 'wishlist' ? 'active' : '' }}">
+                <a href="#wishlistSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Wishlist</a>
+                <ul class="collapse list-unstyled" id="wishlistSubmenu">
+                    <li>
+                        <a href="{{ route('wishlist.create') }}">Add New Book Wish</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('wishlist.list') }}">Book Wish List</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="{{ Request::segment(1) == 'bookIssued' ? 'active' : '' }}">
+                <a href="#bookIssueSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Book Issue</a>
+                <ul class="collapse list-unstyled" id="bookIssueSubmenu">
+                    <li>
+                        <a href="{{ route('bookIssued.create') }}">Issue A Book</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('bookIssued.list') }}">Books Issued</a>
+                    </li>
+                </ul>
+            </li>
         @endif
     </ul>
 

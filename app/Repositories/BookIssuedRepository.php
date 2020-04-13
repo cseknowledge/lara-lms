@@ -4,8 +4,8 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Response;
-use App\Book;
-use App\User;
+use App\Models\Book;
+use App\Models\User;
 
 class BookIssuedRepository implements RepositoryInterface
 {
@@ -81,7 +81,7 @@ class BookIssuedRepository implements RepositoryInterface
     public function getBooks($id='')
     {
         if($id == '') {
-            return Book::where('is_available', 1)->latest()->get();
+            return Book::where('quantity', '>', 0)->latest()->get();
         } else {
             $issuedBook = Book::where('id', $id)->get();
             $availableBook = Book::where('is_available', 1)->get();
@@ -90,16 +90,23 @@ class BookIssuedRepository implements RepositoryInterface
         }
     }
 
-    public function getUsers()
+    public function getUsers($action = '')
     {
-        $today = date('Y-m-d', strtotime("today midnight". ' + 7 days'));
-        return User::where('expiry_date', '>=', $today)->latest()->get();
+        if($action == '') {
+            $today = date('Y-m-d', strtotime("today midnight". ' + 7 days'));
+            return User::where('expiry_date', '>=', $today)->latest()->get(); 
+        } else {
+            return User::latest()->get();
+        }       
     }
 
     public function updateBookAvailability($id, $status)
     {
-        $book = Book::findOrFail($id);
-        $book->is_available = $status;
+        $book = Book::findOrFail($id);     
+        if($book->quantity == 1) {
+            $book->is_available = $status;
+        }   
+        $book->quantity = --$book->quantity;
         $book->save();
     }
 }

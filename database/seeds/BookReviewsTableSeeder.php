@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use App\BookReview;
+use App\Models\BookReview;
 
 class BookReviewsTableSeeder extends Seeder
 {

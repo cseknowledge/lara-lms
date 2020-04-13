@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\PublisherRepository;
 use App\Http\Requests\PublisherPostRequest;
 
-use App\Publisher;
+use App\Models\Publisher;
 
 class PublisherController extends Controller
 {

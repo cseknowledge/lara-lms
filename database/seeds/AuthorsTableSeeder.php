@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use App\Author;
+use App\Models\Author;
 
 class AuthorsTableSeeder extends Seeder
 {

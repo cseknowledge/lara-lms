@@ -4,8 +4,10 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Book;
-use App\User;
+use App\Models\Book;
+use App\Models\User;
+use App\Models\Message;
+use App\Models\Wishlist;
 
 class BookReturnRepository implements RepositoryInterface
 {
@@ -80,7 +82,7 @@ class BookReturnRepository implements RepositoryInterface
 
     public function getBooks()
     {
-        return Book::where('is_available', 0)->latest()->get();
+        return Book::all();
     }
 
     public function getUsers()
@@ -88,10 +90,34 @@ class BookReturnRepository implements RepositoryInterface
         return User::all();
     }
 
-    public function updateBookAvailability($id, $status)
+    public function updateBookAvailability($id, $status, $return_problem)
     {
         $book = Book::findOrFail($id);
-        $book->is_available = $status;
+        if($return_problem != "Lost") {
+            $book->quantity = ++$book->quantity;
+        }
+        if($book->quantity > 0) {            
+            $book->is_available = $status;
+        }
         $book->save();
+    }
+
+    public function notifyToWishlistUser($book_id)
+    {   
+        $book = Book::findOrFail($book_id); 
+        $wishlist = Wishlist::Where('book_id', $book_id)->Where('is_user_acknowledged', false)->first();
+        $librarian = User::Where('member_type', 'Librarian')->first();
+        
+        if($book->quantity > 0 && (isset($wishlist) && $wishlist->count() > 0)) {            
+            $message = new Message();
+            $message->message = $book->book_name." is currently available in our library. Please collect as soon as possible.";
+            $message->department = "Librarian";
+            $message->wishlist_id =$wishlist->id;
+            $message->message_from_user_id = $librarian->id;
+            $message->save();
+
+            $wishlist->is_user_acknowledged = true;
+            $wishlist->update();
+        }
     }
 }

@@ -82,6 +82,8 @@
                     <div class="clearfix"></div> 
                     <div class="col-md-7 offset-5 custom-margin">  
                         <div class="col-md-4">
+                            <input type="hidden" name="issued_by" value="{{ Auth::user()->id }}" />
+                            <input type="hidden" name="is_apparoved" value="1" />
                         <button type="submit" class="btn btn-warning" >Issue a book <span class="glyphicon glyphicon-send"></span></button>
                         </div>
                     </div>

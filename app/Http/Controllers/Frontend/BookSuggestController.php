@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\BookSuggestRepository;
 use App\Http\Requests\BookSuggestPostRequest;
 
-use App\BookSuggest;
+use App\Models\BookSuggest;
 
 class BookSuggestController extends Controller
 {

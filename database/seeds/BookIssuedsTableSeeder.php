@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use App\BookIssued;
+use App\Models\BookIssued;
 
 class BookIssuedsTableSeeder extends Seeder
 {

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookIssuedsTable extends Migration
+class CreateWishlistsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,30 +13,22 @@ class CreateBookIssuedsTable extends Migration
      */
     public function up()
     {
-        Schema::create('book_issueds', function (Blueprint $table) {
+        Schema::create('wishlists', function (Blueprint $table) {
             $table->id();
-            $table->date('issue_date');
-            $table->date('return_date');
-            $table->integer('quantity')->nullable();
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('user_id');
-            $table->integer('issued_by')->nullable();
-            $table->integer('is_apparoved')->nullable();
+            $table->boolean('is_user_acknowledged')->default(0);
+            $table->string('short_description')->nullable();
             $table->timestamps();
-            
         });
-        
+
         //Foreign Key
-        Schema::table('book_issueds', function($table) {
+        Schema::table('wishlists', function($table) {
             
             $table->foreign('book_id')
             ->references('id')
             ->on('books')
             ->onDelete('cascade');
-
-        });
-
-        Schema::table('book_issueds', function($table) {
             
             $table->foreign('user_id')
             ->references('id')
@@ -53,6 +45,6 @@ class CreateBookIssuedsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book_issueds');
+        Schema::dropIfExists('wishlists');
     }
 }

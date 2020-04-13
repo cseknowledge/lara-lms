@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Repositories\BookReturnRepository;
 use App\Http\Requests\BookReturnPostRequest;
 
-use App\BookReturn;
+use App\Models\BookReturn;
+use App\Models\Wishlist;
 
 class BookReturnController extends Controller
 {
@@ -35,7 +36,8 @@ class BookReturnController extends Controller
     public function store(BookReturnPostRequest $request)
     {   //Calculate lost & quantity based availability     
         $this->bookReturnRepository->create($request->only($this->bookReturnRepository->getModel()->fillable));         
-        $this->bookReturnRepository->updateBookAvailability($request->input('book_id'), '1');      
+        $this->bookReturnRepository->updateBookAvailability($request->input('book_id'), '1', $request->input('return_problem'));
+        $this->bookReturnRepository->notifyToWishlistUser($request->input('book_id'));      
         return redirect('/bookReturn/create')->with('flash_message', 'Book return successfully');
     }
     

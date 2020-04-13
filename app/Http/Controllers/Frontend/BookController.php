@@ -8,7 +8,7 @@ use App\Repositories\BookRepository;
 use App\Http\Requests\BookPostRequest;
 use Illuminate\Support\Facades\DB;
 
-use App\Book;
+use App\Models\Book;
 
 class BookController extends Controller
 {

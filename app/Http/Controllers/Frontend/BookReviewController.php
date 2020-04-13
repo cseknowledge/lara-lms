@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\BookReviewRepository;
 use App\Http\Requests\BookReviewPostRequest;
 
-use App\BookReview;
+use App\Models\BookReview;
 
 class BookReviewController extends Controller
 {

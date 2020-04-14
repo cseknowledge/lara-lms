@@ -4,8 +4,10 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Response;
+use Auth;
 use App\Models\Book;
 use App\Models\User;
+use App\Models\BookIssued;
 
 class BookIssuedRepository implements RepositoryInterface
 {
@@ -21,7 +23,11 @@ class BookIssuedRepository implements RepositoryInterface
     // Get all instances of model
     public function all()
     {
-        return $this->model->all();
+        if(Auth::user()->member_type != "Student") {
+            return $this->model->where('issued_by', '!=', null)->where('is_approved', '=', true)->get();
+        } else {
+            return $this->model->where('is_request_from_student', '=', true)->where('user_id', '=', Auth::user()->id)->get();
+        }
     }
 
     // create a new record in the database
@@ -40,6 +46,12 @@ class BookIssuedRepository implements RepositoryInterface
     // remove record from the database
     public function delete($id)
     {
+        if(Auth::user()->member_type == "Student") {
+            $book = Book::findOrFail($id); 
+            $book->is_available = 1;
+            $book->quantity = ++$book->quantity;
+            $book->save();
+        }
         return $this->model->destroy($id);
     }
 
@@ -70,12 +82,20 @@ class BookIssuedRepository implements RepositoryInterface
 
     public function getPreviousBookIssuedId($id)
     {
-        return $this->model->where('id', '<', $id)->max('id');
+        if(Auth::user()->member_type != "Student") {
+            return $this->model->where('id', '<', $id)->where('issued_by', '=', null)->where('is_approved', '=', true)->max('id');
+        } else {
+            return $this->model->where('id', '<', $id)->where('issued_by', '=', null)->where('is_approved', '=', false)->where('user_id', '=', Auth::user()->id)->max('id');
+        }
     }
 
     public function getNextBookIssuedId($id)
     {
-        return $this->model->where('id', '>', $id)->min('id');
+        if(Auth::user()->member_type != "Student") {
+            return $this->model->where('id', '>', $id)->where('issued_by', '=', null)->where('is_approved', '=', true)->min('id');
+        } else {
+            return $this->model->where('id', '>', $id)->where('issued_by', '=', null)->where('is_approved', '=', false)->where('user_id', '=', Auth::user()->id)->min('id');
+        }
     }
 
     public function getBooks($id='')
@@ -106,7 +126,15 @@ class BookIssuedRepository implements RepositoryInterface
         if($book->quantity == 1) {
             $book->is_available = $status;
         }   
-        $book->quantity = --$book->quantity;
+        $book->quantity = $status == 0 ? --$book->quantity : ++$book->quantity;
         $book->save();
+    }
+
+    public function updateStudentRequest($id, $status)
+    {
+        $bookIssue = BookIssued::findOrFail($id); 
+        $bookIssue->issued_by = Auth::user()->id;
+        $bookIssue->is_approved = $status;
+        $bookIssue->save();
     }
 }

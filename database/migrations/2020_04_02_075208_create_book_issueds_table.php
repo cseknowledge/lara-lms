@@ -21,7 +21,8 @@ class CreateBookIssuedsTable extends Migration
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('user_id');
             $table->integer('issued_by')->nullable();
-            $table->integer('is_apparoved')->nullable();
+            $table->boolean('is_approved')->default(0);
+            $table->boolean('is_request_from_student')->default(0);
             $table->timestamps();
             
         });

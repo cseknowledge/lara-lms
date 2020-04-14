@@ -30,8 +30,9 @@
                             @error('book_id')
                                 <p class="alert alert-danger">{{ $message }}</p>
                             @enderror
-                        </div>      
-                                                   
+                        </div>   
+
+                        @if(Auth::user()->member_type != "Student")                         
                         <div class="form-group">
                             <label class="col-md-6 offset-3 control-label">Member's Name</label>  
                             <div class="col-md-6 offset-3">
@@ -48,7 +49,8 @@
                                 <p class="alert alert-danger">{{ $message }}</p>
                             @enderror
                         </div> 
-
+                        @endif
+                        
                         <div class="form-group">
                             <label class="col-md-6 offset-3 control-label">Issue Date</label>  
                             <div class="col-md-6 offset-3">
@@ -82,8 +84,14 @@
                     <div class="clearfix"></div> 
                     <div class="col-md-7 offset-5 custom-margin">  
                         <div class="col-md-4">
-                            <input type="hidden" name="issued_by" value="{{ Auth::user()->id }}" />
-                            <input type="hidden" name="is_apparoved" value="1" />
+                            @if(Auth::user()->member_type != "Student")
+                                <input type="hidden" name="issued_by" value="{{ Auth::user()->id }}" />
+                                <input type="hidden" name="is_apparoved" value="1" />
+                            @endif
+                            @if(Auth::user()->member_type == "Student")
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />
+                                <input type="hidden" name="is_request_from_student" value="1" />
+                            @endif
                         <button type="submit" class="btn btn-warning" >Issue a book <span class="glyphicon glyphicon-send"></span></button>
                         </div>
                     </div>

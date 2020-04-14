@@ -19,7 +19,10 @@
                         <a href="{{ route('book.list') }}">Book List</a>
                     </li>
                 </ul>
-            </li>
+            </li>     
+            <li class="{{ Request::segment(1) == 'bookSuggest' ? 'active' : '' }}">
+                <a href="{{ route('bookSuggest.list') }}">Book Suggest</a>
+            </li> 
             <li class="{{ Request::segment(1) == 'bookIssued' ? 'active' : '' }}">
                 <a href="#bookIssueSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Book Issue</a>
                 <ul class="collapse list-unstyled" id="bookIssueSubmenu">

@@ -56,6 +56,7 @@ Route::get('/bookIssued/show/{id}', 'Frontend\BookIssuedController@show')->name(
 Route::get('/bookIssued/edit/{id}', 'Frontend\BookIssuedController@edit')->name('bookIssued.edit');
 Route::post('/bookIssued/update/{id}', 'Frontend\BookIssuedController@update')->name('bookIssued.update');
 Route::get('/bookIssued/destroy/{id}', 'Frontend\BookIssuedController@destroy')->name('bookIssued.destroy');
+Route::get('/bookIssued/updateStudentRequest/{status}/{id}', 'Frontend\BookIssuedController@updateStudentRequest')->name('bookIssued.updateStudentRequest');
 
 
 Route::get('/bookReturn/', 'Frontend\BookReturnController@index')->name('bookReturn.list');

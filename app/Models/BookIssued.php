@@ -10,7 +10,7 @@ class BookIssued extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['issue_date', 'return_date', 'quantity', 'book_id', 'user_id', 'issued_by', 'is_apparoved'];
+    protected $fillable = ['issue_date', 'return_date', 'quantity', 'book_id', 'user_id', 'issued_by', 'is_approved', 'is_request_from_student'];
 
     //protected $guarded = [];    
 

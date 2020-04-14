@@ -30,8 +30,9 @@
                             @error('book_id')
                                 <p class="alert alert-danger">{{ $message }}</p>
                             @enderror
-                        </div>      
-                                                   
+                        </div>  
+                            
+                        @if(Auth::user()->member_type != "Student")                           
                         <div class="form-group">
                             <label class="col-md-6 offset-3 control-label">Member's Name</label>  
                             <div class="col-md-6 offset-3">
@@ -48,6 +49,7 @@
                                 <p class="alert alert-danger">{{ $message }}</p>
                             @enderror
                         </div> 
+                        @endif
 
                         <div class="form-group">
                             <label class="col-md-6 offset-3 control-label">Issue Date</label>  

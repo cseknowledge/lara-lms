@@ -73,4 +73,11 @@ class BookIssuedController extends Controller
         $this->bookIssuedRepository->delete($id);
         return redirect('/bookIssued/')->with('flash_message', 'BookIssued information deleted successfully');
     }
+
+    public function updateStudentRequest($status, $id)
+    {
+        $message = $status == 1 ? "Approved" : "Rejected";
+        $this->bookIssuedRepository->updateStudentRequest($id, $status);
+        return redirect('/dashboard/')->with('flash_message', 'Student book request '.$message.' successfully');
+    }
 }

@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
 use DB;
-use App\Models\BookSugget;
+use App\Models\BookSuggest;
 use App\Models\User;
 
 class BookSuggestRepository implements RepositoryInterface

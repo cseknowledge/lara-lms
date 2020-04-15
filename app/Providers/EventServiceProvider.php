@@ -15,8 +15,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
+        NotifyToWishlistUserEvent::class => [
+            NotifyToWishlistUserListener::class,
         ],
     ];
 
@@ -30,5 +30,14 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
         //
+    }
+    /**
+     * Determine if events and listeners should be automatically discovered.
+     *
+     * @return bool
+     */
+    public function shouldDiscoverEvents()
+    {
+        return true;
     }
 }

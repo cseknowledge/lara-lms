@@ -86,7 +86,7 @@
                         <div class="col-md-4">
                             @if(Auth::user()->member_type != "Student")
                                 <input type="hidden" name="issued_by" value="{{ Auth::user()->id }}" />
-                                <input type="hidden" name="is_apparoved" value="1" />
+                                <input type="hidden" name="is_apparoved" value="true" />
                             @endif
                             @if(Auth::user()->member_type == "Student")
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />
